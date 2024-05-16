@@ -1,8 +1,6 @@
-#![allow(dead_code)] // todo remove
-
 use itertools::Itertools;
 
-// todo load from config
+// todo ~~load from config~~ would load from config :D
 const EMPTY_CHAR: char = '.';
 
 #[derive(Default, Debug)]
@@ -13,14 +11,6 @@ struct Context {
 }
 
 impl Context {
-    fn new() -> Self {
-        Self {
-            line_sum: 0,
-            current_sum: None,
-            should_flush: false,
-        }
-    }
-
     fn is_activating(character: char) -> bool {
         !character.is_numeric() && character != EMPTY_CHAR
     }
