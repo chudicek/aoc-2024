@@ -1,4 +1,4 @@
-use backend::line_count_active;
+use backend::line_sum_active;
 
 fn main() {
     println!("Hello, world!");
@@ -7,5 +7,5 @@ fn main() {
     let analyzed_line = "def";
     let next_line = "ghi";
 
-    let _ = line_count_active(previous_line, analyzed_line, next_line);
+    let _ = line_sum_active(previous_line, analyzed_line, next_line);
 }
