@@ -82,6 +82,8 @@ impl Context {
 ///
 /// # Examples
 /// ```rust
+/// use backend::line_sum_active;
+///
 /// let previous_line = "..*";
 /// let analyzed_line = ".1.";
 /// let next_line =     "...";
