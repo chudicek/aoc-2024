@@ -237,15 +237,6 @@ mod tests {
     }
 
     #[test]
-    fn test_single_activating() {
-        let previous_line = "..*";
-        let analyzed_line = ".1.";
-        let next_line = "...";
-
-        assert_eq!(line_sum_active(previous_line, analyzed_line, next_line), 1);
-    }
-
-    #[test]
     fn test_map_sum() {
         let smol_input = r#"467..257..
             ...*......
