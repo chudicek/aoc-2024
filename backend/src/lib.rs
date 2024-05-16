@@ -87,7 +87,7 @@ impl Context {
 /// let next_line =     "...";
 ///
 /// // The number `1` is activated by the `*` character in the upper line.
-/// assert_eq!(line_count_active(previous_line, analyzed_line, next_line), 1);
+/// assert_eq!(line_sum_active(previous_line, analyzed_line, next_line), 1);
 /// ```
 pub fn line_sum_active(previous_line: &str, analyzed_line: &str, next_line: &str) -> usize {
     previous_line
