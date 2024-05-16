@@ -59,11 +59,32 @@ impl Context {
     }
 }
 
-/// Count the number of active lines in a diff.
+/// Counts the sum of active numbers in a line of a *map*.
+
+/// # Arguments
+/// * `previous_line` - A line above the `analyzed_line` in a *map*.
+/// * `analyzed_line` - A line in a *map* to get the sum of active numbers in.
+/// * `next_line` - A line below the `analyzed_line` in a *map*.
+
+/// # Preconditions
+/// * The sum of the lengths of the characters in `analyzed_line` must not overflow a `usize`.
+/// * All three input strings (`previous_line`, `analyzed_line`, `next_line`) must have the same length.
+
+/// # Returns
+/// The number of characters in `analyzed_line` that differ from the corresponding characters
+/// in either `previous_line` or `next_line`.
 ///
-/// precondition: the sum of the numbers in the analyzed line must fit into a `usize`
+/// If the preconditions are not met, the return value is undefined.
 ///
-/// precondition: the lengths of the previous, analyzed, and next lines must be equal
+/// # Examples
+/// ```rust
+/// let previous_line = "..*";
+/// let analyzed_line = ".1.";
+/// let next_line =     "...";
+///
+/// // The number `1` is activated by the `*` character in the upper line.
+/// assert_eq!(line_count_active(previous_line, analyzed_line, next_line), 1);
+/// ```
 pub fn line_count_active(previous_line: &str, analyzed_line: &str, next_line: &str) -> usize {
     previous_line
         .chars()
@@ -187,5 +208,17 @@ mod tests {
                 1
             );
         }
+    }
+
+    #[test]
+    fn test_single_activating() {
+        let previous_line = "..*";
+        let analyzed_line = ".1.";
+        let next_line = "...";
+
+        assert_eq!(
+            line_count_active(previous_line, analyzed_line, next_line),
+            1
+        );
     }
 }
