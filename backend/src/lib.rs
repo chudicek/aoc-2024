@@ -92,6 +92,33 @@ pub fn line_sum_active(previous_line: &str, analyzed_line: &str, next_line: &str
         .get_sum()
 }
 
+/// Counts the sum of active numbers in a *map*.
+///
+/// # Arguments
+/// * `lines` - An iterator of lines in a *map*.
+///
+/// # Returns
+/// The sum of active numbers in the *map*.
+///
+/// # Examples
+/// ```rust
+/// use backend::map_sum;
+///
+/// let smol_input = r#"467..257..
+///     ...*......
+///     ..35..633.
+///     ......#...
+///     617*......
+///     .....+.13.
+///     ..592.....
+///     ......755.
+///     ...$.*....
+///     .664.598.."#
+///     .lines()
+///     .map(|s| s.trim().to_string()); // <- must trim
+///
+/// assert_eq!(map_sum(smol_input), 4361);
+/// ```
 pub fn map_sum<I>(mut lines: I) -> usize
 where
     I: Iterator<Item = String>,
@@ -253,24 +280,6 @@ mod tests {
                 1
             );
         }
-    }
-
-    #[test]
-    fn test_map_sum() {
-        let smol_input = r#"467..257..
-            ...*......
-            ..35..633.
-            ......#...
-            617*......
-            .....+.13.
-            ..592.....
-            ......755.
-            ...$.*....
-            .664.598.."#
-            .lines()
-            .map(|s| s.trim().to_string()); // <- must trim
-
-        assert_eq!(map_sum(smol_input), 4361);
     }
 
     const DATASET_DIR: &str = "dataset";
