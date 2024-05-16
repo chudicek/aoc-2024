@@ -129,6 +129,8 @@ where
 
 #[cfg(test)]
 mod tests {
+    use std::io::{self, BufRead};
+
     use super::*;
 
     // prevent the edge case where the activating character used in the test is the same as the one used in the implementation
@@ -279,5 +281,24 @@ mod tests {
             .map(|s| s.trim().to_string()); // <- must trim
 
         assert_eq!(map_sum(smol_input), 4361);
+    }
+
+    const DATASET_DIR: &str = "dataset";
+    const EXAMPLE0: &str = "example0";
+
+    #[test]
+    fn test_map_sum_larger() {
+        let mut dataset_path = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        dataset_path = dataset_path.parent().unwrap().to_path_buf();
+        dataset_path.push(DATASET_DIR);
+        dataset_path.push(EXAMPLE0);
+
+        let dataset_file = std::fs::File::open(dataset_path).unwrap();
+
+        let lines = io::BufReader::new(dataset_file)
+            .lines()
+            .map(|line| line.unwrap());
+
+        assert_eq!(map_sum(lines), 557705); // hopefully lol
     }
 }
