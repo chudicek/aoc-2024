@@ -1,11 +1,16 @@
-use backend::line_sum_active;
+use std::io::BufRead;
+
+use backend::map_sum;
 
 fn main() {
-    println!("Hello, world!");
+    let lines = std::io::stdin().lock().lines();
 
-    let previous_line = "abc";
-    let analyzed_line = "def";
-    let next_line = "ghi";
+    let sum = map_sum(lines.map(|line| line.expect("Error reading input")));
 
-    let _ = line_sum_active(previous_line, analyzed_line, next_line);
+    output_result(sum);
+}
+
+fn output_result(sum: usize) {
+    // some nicer output needed :D
+    println!("{}", sum);
 }
