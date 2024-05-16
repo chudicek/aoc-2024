@@ -91,6 +91,7 @@ jobs:
       - name: Upload to codecov.io
         uses: codecov/codecov-action@v4
         with:
+          # todo valid token
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Archive code coverage results
         uses: actions/upload-artifact@v4
