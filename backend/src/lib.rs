@@ -1,5 +1,7 @@
 #![allow(dead_code)] // todo remove
 
+use itertools::Itertools;
+
 // todo load from config
 const EMPTY_CHAR: char = '.';
 
@@ -94,6 +96,31 @@ pub fn line_sum_active(previous_line: &str, analyzed_line: &str, next_line: &str
             ctx.update(prev, analyzed, next)
         })
         .get_sum()
+}
+
+pub fn map_sum<I>(mut lines: I) -> usize
+where
+    I: Iterator<Item = String>,
+{
+    let Some(fist_line) = lines.next() else {
+        return 0;
+    };
+
+    let line_lenght = fist_line.chars().count();
+
+    let padding = std::iter::repeat(EMPTY_CHAR)
+        .take(line_lenght)
+        .collect::<String>();
+
+    let padded_input = std::iter::once(padding.clone())
+        .chain(std::iter::once(fist_line))
+        .chain(lines)
+        .chain(std::iter::once(padding));
+
+    padded_input
+        .tuple_windows()
+        .map(|(prev, analyzed, next)| line_sum_active(&prev, &analyzed, &next))
+        .sum()
 }
 
 #[cfg(test)]
@@ -214,5 +241,23 @@ mod tests {
         let next_line = "...";
 
         assert_eq!(line_sum_active(previous_line, analyzed_line, next_line), 1);
+    }
+
+    #[test]
+    fn test_map_sum() {
+        let smol_input = r#"467..257..
+            ...*......
+            ..35..633.
+            ......#...
+            617*......
+            .....+.13.
+            ..592.....
+            ......755.
+            ...$.*....
+            .664.598.."#
+            .lines()
+            .map(|s| s.trim().to_string()); // <- must trim
+
+        assert_eq!(map_sum(smol_input), 4361);
     }
 }
