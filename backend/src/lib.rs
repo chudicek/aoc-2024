@@ -237,6 +237,31 @@ mod tests {
     }
 
     #[test]
+    fn activating_character_besides_is_registered() {
+        {
+            let empty_previous_line = std::iter::repeat(EMPTY_CHAR).take(3).collect::<String>();
+            let analyzed_line = format!("{}{}{}", EMPTY_CHAR, "1", SOME_ACTIVATING_CHAR);
+            let empty_next_line = std::iter::repeat(EMPTY_CHAR).take(3).collect::<String>();
+
+            assert_eq!(
+                line_sum_active(&empty_previous_line, &analyzed_line, &empty_next_line),
+                1
+            );
+        }
+
+        {
+            let empty_previous_line = std::iter::repeat(EMPTY_CHAR).take(3).collect::<String>();
+            let analyzed_line = format!("{}{}{}", SOME_ACTIVATING_CHAR, "1", EMPTY_CHAR);
+            let empty_next_line = std::iter::repeat(EMPTY_CHAR).take(3).collect::<String>();
+
+            assert_eq!(
+                line_sum_active(&empty_previous_line, &analyzed_line, &empty_next_line),
+                1
+            );
+        }
+    }
+
+    #[test]
     fn test_map_sum() {
         let smol_input = r#"467..257..
             ...*......
