@@ -33,7 +33,9 @@ impl Context {
                 old * 10 + parsed_digit as usize
             }));
         } else {
-            let currrent_activates = Self::is_activating(prev) || Self::is_activating(next);
+            let currrent_activates = Self::is_activating(prev)
+                || Self::is_activating(analyzed)
+                || Self::is_activating(next);
 
             let number_to_flush = self.current_sum.take().unwrap_or(0);
             if self.should_flush || currrent_activates {
